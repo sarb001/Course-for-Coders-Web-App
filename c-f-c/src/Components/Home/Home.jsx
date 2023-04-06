@@ -15,6 +15,7 @@ import { CgGoogle, CgYoutube } from 'react-icons/cg';
 import { SiCoursera, SiUdemy } from 'react-icons/si';
 import { DiAws } from 'react-icons/di';
 import introVideo from '../../Assests/Videos/intro.mp4';
+import './Home.css';
 
 const Home = () => {
   return (
