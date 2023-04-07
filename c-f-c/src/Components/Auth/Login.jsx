@@ -26,6 +26,7 @@ const Login = () => {
         <Heading children={'Welcome to CourseBundler'} />
 
         <form onSubmit={submitHandler} style={{ width: '100%' }}>
+          
           <Box my={'4'}>
             <FormLabel htmlFor="email" children="Email Address" />
             <Input
