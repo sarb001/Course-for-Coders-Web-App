@@ -15,6 +15,7 @@ import Subscribe from './Components/Payments/Subscribe';
 import PaymentSuccess from './Components/Payments/PaymentSuccess';
 import PaymentsFail from './Components/Payments/PaymentsFail';
 import NotFound from './Components/Layout/NotFound/NotFound';
+import Coursepage from './Components/CoursePage/Coursepage';
 
 function App() {
   return (
@@ -23,7 +24,10 @@ function App() {
             <Header />
          <Routes>
             <Route exact path = "/"  element= {<Home />}> </Route>
-            <Route exact path = "/courses"  element= {<Courses />}> </Route>
+            <Route  path = "/courses"  element= {<Courses />}> </Route>
+            <Route  path = "/course/:id"  element= {<Coursepage />}> </Route>
+
+
             <Route exact path = "/login"  element= {<Login />}> </Route>
             <Route exact path = "/contact"  element= {<Contact  />}> </Route>
             <Route exact path = "/request"  element= {<Request  />}> </Route>
