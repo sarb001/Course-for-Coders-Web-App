@@ -16,6 +16,7 @@ import PaymentSuccess from './Components/Payments/PaymentSuccess';
 import PaymentsFail from './Components/Payments/PaymentsFail';
 import NotFound from './Components/Layout/NotFound/NotFound';
 import Coursepage from './Components/CoursePage/Coursepage';
+import Profile from './Components/Profile/Profile';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
 
 
             <Route exact path = "/login"  element= {<Login />}> </Route>
+            <Route exact path = "/profile"  element= {<Profile />}> </Route>
             <Route exact path = "/contact"  element= {<Contact  />}> </Route>
             <Route exact path = "/request"  element= {<Request  />}> </Route>
             <Route exact path = "/about"  element= {<About  />}> </Route>
