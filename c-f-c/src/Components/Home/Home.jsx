@@ -1,14 +1,5 @@
 import React from 'react';
-import {
-  Box,
-  Button,
-  Heading,
-  HStack,
-  Image,
-  Stack,
-  Text,
-  VStack,
-} from '@chakra-ui/react';
+import { Box,Button,Heading,HStack,Image,Stack,Text,VStack } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import vg from '../../Assests/Images/bg.png';
 import { CgGoogle, CgYoutube } from 'react-icons/cg';
