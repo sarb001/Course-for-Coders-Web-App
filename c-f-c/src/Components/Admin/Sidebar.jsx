@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 const Sidebar = () => {
   return (
     <div>
-      <VStack spacing = {'8'} P = '16' boxShadow = {'-2px 0 10px rgba(107,70,193.0.5)'}>
+      <VStack spacing = {'8'} P = '16' boxShadow = {'-2px 0 10px rgba(107,70,193,0.5)'}>
       <LinkButton  Icon = {RiDashboardFill}  text = "Dashboard" url = {`dashboard`} />
       <LinkButton  Icon = {RiAddCircleFill}  text = "Create Course" url = {`createcourse`} />
       <LinkButton  Icon = {RiEyeFill}        text = "Courses" url = {`courses`} />
