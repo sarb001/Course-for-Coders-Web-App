@@ -8,7 +8,7 @@ const AdminCourses = () => {
     <div> 
          <Grid minH = {'100vh'} 
       templateColumns={['1fr','5fr 1fr']}>
-        <Box> </Box>
+        <Box>   </Box>
         <Sidebar />
       </Grid>
     </div>

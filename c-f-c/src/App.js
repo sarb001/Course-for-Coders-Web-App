@@ -57,7 +57,7 @@ function App() {
                {/* admin dashboard  */}
 
             <Route  path = "/admin/dashboard"   element = {<Dashboard  />}> </Route>
-            <Route  path = "/admin/creatcourse"  element = {<CreateCourses />}> </Route>
+            <Route  path = "/admin/createcourse"  element = {<CreateCourses />}> </Route>
             <Route  path = "/admin/courses"     element = {<AdminCourses  />}> </Route>
             <Route  path = "/admin/users"       element = {<Users  />}> </Route>
 
