@@ -19,6 +19,10 @@ import Coursepage from './Components/CoursePage/Coursepage';
 import Profile from './Components/Profile/Profile';
 import ChangePassword from './Components/Profile/ChangePassword';
 import UpdateProfile from './Components/Profile/UpdateProfile';
+import Dashboard from './Components/Admin/DashBoard/Dashboard';
+import CreateCourses from './Components/Admin/CreateCourses/CreateCourses';
+import Users from './Components/Admin/Users/Users';
+import AdminCourses from './Components/Admin/AdminCourses/AdminCourses';
 
 function App() {
   return (
@@ -43,11 +47,19 @@ function App() {
             <Route exact path = "/forgetpassword"  element= {<ForgetPassword />}> </Route>
             <Route exact path = "/resetpassword/:token"  element= {<ResetPassword />}> </Route>
 
+            {/* Related To Payments */}
 
             <Route  path = "/subscribe"  element= {<Subscribe />}> </Route>
             <Route  path = "*"  element= {<NotFound />}> </Route>
             <Route  path = "/paymentsuccess"  element= {<PaymentSuccess/>}> </Route>
             <Route  path = "/paymentfail"  element= {<PaymentsFail  />}> </Route>
+
+               {/* admin dashboard  */}
+
+            <Route  path = "/admin/dashboard"   element = {<Dashboard  />}> </Route>
+            <Route  path = "/admin/creatcourse"  element = {<CreateCourses />}> </Route>
+            <Route  path = "/admin/courses"     element = {<AdminCourses  />}> </Route>
+            <Route  path = "/admin/users"       element = {<Users  />}> </Route>
 
          </Routes>
          <Footer />
