@@ -32,6 +32,7 @@ const CourseModal = ({ isOpen, onClose , id,
   const [video, setVideo] = useState('');
   const [videoPrev, setVideoPrev] = useState('');
 
+    // frontend Done 
   const changeVideoHandler = e => {
       const file = e.target.files[0];
       const reader = new FileReader();
