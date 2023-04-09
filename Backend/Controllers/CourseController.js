@@ -1,13 +1,14 @@
 import { Course } from '../Models/Course.js';
 
 export const getAllCourses = async(req,res,next) => {
-    const courses = await Course.find();
+    const courses = await Course.find().select("-lectures");
     res.status(200).json({
         success : true,
         courses,
     });
 }
 
+//By Admin ONly
 export const CreateCourses = async(req,res,next) => {
     const { title, description, category, createdBy } = req.body;
 
