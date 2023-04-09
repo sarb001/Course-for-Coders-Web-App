@@ -9,6 +9,7 @@ import {
 } from '@chakra-ui/react';
 import { RiArrowDownLine, RiArrowUpLine } from 'react-icons/ri';
 import Sidebar from '../Sidebar'
+import { DoughnutChart, LineChart } from './Chart';
 
 const Dashboard = () => {
 
@@ -24,7 +25,7 @@ const Dashboard = () => {
             <HStack>
               <Text  children = {`${qtyPercentage}`} />
                   { profit ? (
-                    <RiArrowDownLine  color = 'green' />
+                    <RiArrowUpLine    color = 'green' />
                   ) : (
                     <RiArrowDownLine  color = 'red' />
                   )}
@@ -39,7 +40,7 @@ const Dashboard = () => {
     <Heading  size = "sm" children= {title}  mb = "2"  />
 
       <HStack w = "full"  alignItems = {'center'}>
-          <Text  children = {profit ? "0%" : `-${value}%`} />
+          <Text  children = {profit ? `${value}` : `-${value}%`} />
           <Progress  w = "full"  value = {profit ? value : 0}   colorScheme = 'purple' />
           <Text   children = {`${value > 100 ? value : 100}%`} />
       </HStack>
@@ -51,12 +52,13 @@ const Dashboard = () => {
     <div> 
        <Grid minH = {'100vh'} templateColumns = {['1fr' , '5fr 1fr']}>
         <Box boxSizing = 'border-box' py = '16' px = {['4','0']}>
+
           <Text  textAlign = {'center'} 
            opacity = {0.5} 
            children = {`Last change was on ${String(new Date()).split('G')[0]}`} />
 
           <Heading  children = 'Dashboard'  ml = {['0','16']}  mb = '16' 
-          textAlign={['center','left']} />
+          textAlign = {['center','left']} />
 
         <Stack direction = {['column','row']}  minH ='55' justifyContent = {'space-evenly'} 
          >
@@ -76,6 +78,10 @@ const Dashboard = () => {
         children = 'Views Graph' 
         pt = {['8' ,'0']} 
         ml =  {['0' ,'16']} />
+
+        {/* Line Graph  */}
+        <LineChart />
+
        </Box>
 
     <Grid templateColumns={['1fr' , '2fr 1fr']}>
@@ -97,6 +103,9 @@ const Dashboard = () => {
 
       <Box p = {['0','16']} boxSizing = 'border-box' py = '4'>
           <Heading  textAlign={'center'}  size ='md' mb = '4'  children = "Users" />
+      
+        <DoughnutChart />
+
       </Box>
 
     </Grid>
