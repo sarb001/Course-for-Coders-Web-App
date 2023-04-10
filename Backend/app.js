@@ -4,7 +4,6 @@ import course from './Routes/CourseRoutes.js';
 import user from './Routes/UserRoutes.js';
 
 
-
 config({
     path: "./Config/config.env",
 })

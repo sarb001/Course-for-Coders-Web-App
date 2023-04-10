@@ -28,20 +28,21 @@ export const register  = async(req,res,next) => {
 }
 
 export const login     = async(req,res,next) => {
+
     const { email, password } = req.body;
 
   if (!email || !password){
       return res.json({message : " Please Fill All the Fields "});
     }
     
-    let user = await User.findOne({ email });
+    let user = await User.findOne({ email }).select("+password");
     
     if (!user) return res.json({message : 'User Not Present'})
-    const isMatch = await User.comparepassword();
+    const isMatch = await user.comparePassword(password);
     
     if(!isMatch){
         return res.json({message : " Incorrect Email or Password "});
-  }
+    }
 
-  sendToken(res,user,`Welcome Back , $ {user.name} Broo`,200); 
+  sendToken(res,user,`Welcome Back , ${user.name} Broo`,200); 
 }
