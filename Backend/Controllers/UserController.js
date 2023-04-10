@@ -1,6 +1,8 @@
 import { User } from '../Models/User.js'
 import { sendToken } from '../Utils/sendToken.js';
+import { sendmail } from '../Utils/sendmail.js';
 
+import crypto from 'crypto';
 
 export const register  = async(req,res,next) => {
     const { name, email, password } = req.body;
@@ -107,7 +109,7 @@ export const  updateprofile = async(req,res) => {
 }
 
 
-export const updateprofilepicture = async(req,res) => {
+export  const updateprofilepicture = async(req,res) => {
 
     res.status(200).json({
         success : true,
@@ -115,3 +117,54 @@ export const updateprofilepicture = async(req,res) => {
     });
 
 }
+
+export  const forgetpassword = async(req,res) => {
+     const { email } = req.body;
+
+     const user  = await User.findOne({ email });
+
+     if(!user){
+        return res.json({message: " User not Found "})
+     }  
+     const resetToken = await user.getResetToken();
+
+     await user.save();
+
+     const url = `${process.env.FRONTEND_URL}/resetpassword/${resetToken}`;
+     const message = ` Click on the Link to Reset your Password , ${url} `;
+
+     await  sendmail(user.email,"Course-for-Coder Reset Password",message);
+
+     res.status(200).json({
+        success : true,
+        message : "Reset Token  has been Sent to Mail"
+     })
+}
+
+export  const resetpassword = async(req,res) => {
+    const { token } = req.params;
+    const ResetPasswordToken = crypto.createHash('sha256').update(token).digest("hex");
+
+    const user = await User.findOne({
+        ResetPasswordToken,
+        ResetPasswordExpire: {
+            $gt : Date.now(),
+        },
+    })
+
+    if(!user){
+        return res.json({message : " Token is Invalid or has Been Expired "});
+    }
+
+    user.password = req.body.password;
+    user.ResetPasswordToken  = undefined; 
+    user.ResetPasswordExpire = undefined; 
+
+    await user.save();
+    res.status(200).json({
+        success : true,
+        message: "Password Reseted Success"
+    })
+}
+
+
