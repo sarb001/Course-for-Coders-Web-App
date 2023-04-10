@@ -33,7 +33,7 @@ router.route('/resetpassword/:token').put(resetpassword)
 
 router.route('/addtoPlaylist').post(isAuthenticated,addtoPlaylist)
 
-router.route('/removefromPlaylist').post(isAuthenticated,removefromPlaylist)
+router.route('/removefromPlaylist').delete(isAuthenticated,removefromPlaylist)
 
 
 

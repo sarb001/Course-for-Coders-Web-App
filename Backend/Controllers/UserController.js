@@ -175,6 +175,7 @@ export const addtoPlaylist = async(req,res) => {
     const user  = await User.findById(req.user._id);
     
     const course  = await Course.findById(req.body.id);
+
     if(!course) {
         return res.json({message : " Invalid Course ID "});
     }
@@ -202,5 +203,26 @@ export const addtoPlaylist = async(req,res) => {
 }
 
 export const removefromPlaylist = async(req,res) => {
+
+    const user  = await User.findById(req.user._id);
+    const course  = await Course.findById(req.query.id);
+
+    if(!course){
+        return res.json({message : " Invalid Course ID "});
+    }
+    
+    const newPlaylist  = user.playlist.filter((item) => {
+        if(item.course.toString() !== course._id.toString())
+        return item;
+    })
+
+    user.playlist = newPlaylist;
+    await user.save();
+
+    res.status(200).json({
+        success: true,
+        message : " Removed From Playlist ",
+    })
+
 
 }
