@@ -1,6 +1,8 @@
 import { User } from '../Models/User.js'
 import { sendToken } from '../Utils/sendToken.js';
 import { sendmail } from '../Utils/sendmail.js';
+import { Course } from '../Models/Course.js';
+
 
 import crypto from 'crypto';
 
@@ -168,3 +170,37 @@ export  const resetpassword = async(req,res) => {
 }
 
 
+export const addtoPlaylist = async(req,res) => {
+    
+    const user  = await User.findById(req.user._id);
+    
+    const course  = await Course.findById(req.body.id);
+    if(!course) {
+        return res.json({message : " Invalid Course ID "});
+    }
+
+    const itemExist = user.playlist.find((item) => {
+        if(item.course.toString() === course._id.toString()) return true;
+    })
+
+
+    if(itemExist){
+        return res.json({message : " Item Already Existed "});
+    }
+
+    user.playlist.push({
+        course : course._id,
+        poster : course.poster.url,
+    });
+
+    await user.save();
+    res.status(200).json({
+        success: true,
+        message : " Added to PLaylist Successfully ",
+    })
+
+}
+
+export const removefromPlaylist = async(req,res) => {
+
+}
