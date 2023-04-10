@@ -65,3 +65,53 @@ export const getMyProfile =   async(req,res,next) => {
          user,
      })
 }
+
+export const changepassword = async(req,res) => {
+
+    const { oldpassword  ,newpassword } = req.body;
+    if(!oldpassword || !newpassword){
+        return res.json({message : "Please ENter all the Fields "})
+    }
+
+    const user = await User.findById(req.user._id).select("+password");
+    const isMatch = await user.comparePassword(oldpassword);
+
+    if(!isMatch){
+        return  res.json({message: " Incorrect Old Password "})
+    }
+
+    user.password = newpassword;
+    await user.save();
+
+    res.status(200).json({
+        success : true,
+        message : " Password Changed Successfully ",
+    })
+
+}
+
+export const  updateprofile = async(req,res) => {
+
+    const {name,email} = req.body;
+    const user = await User.findById(req.user._id);
+    console.log('user in profile is -',user);
+
+    if(name)  user.name  =  name ;
+    if(email) user.email = email ;
+
+    await user.save();
+    res.status(200).json({
+        success : true,
+        message : "Profile Updatedd Successfully",
+    });
+}
+
+
+export const updateprofilepicture = async(req,res) => {
+
+    res.status(200).json({
+        success : true,
+        message : " Profile Picture Updated Successfully.. "
+    });
+
+}
