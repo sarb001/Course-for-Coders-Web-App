@@ -255,3 +255,25 @@ export const getallusers = async(req,res) => {
         users,
     });
 }
+
+
+
+export const updateUserRole = async(req,res) => {
+    const user = await User.findById(req.params.id);
+    if(!user){
+        return res.json({message : " User Not Found "});
+    }
+
+    if(user.role === "user"){
+        user.role = "admin"
+    }else{
+        user.role = "user";
+    }
+
+    await user.save();
+
+    res.status(200).json({
+        success : true,
+        message : "Role Updated "
+    })
+}

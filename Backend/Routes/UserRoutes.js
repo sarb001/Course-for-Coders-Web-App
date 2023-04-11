@@ -3,7 +3,7 @@ const router = express.Router();
 
 import { register, login, logout , getMyProfile ,
 changepassword ,updateprofile , updateprofilepicture  , forgetpassword ,
- resetpassword , addtoPlaylist , removefromPlaylist ,getallusers } 
+ resetpassword , addtoPlaylist , removefromPlaylist ,getallusers , updateUserRole} 
 from '../Controllers/UserController.js';
 
 import { authorizeAdmin, isAuthenticated } from '../Middlewares/auth.js';
@@ -32,7 +32,9 @@ router.route('/addtoPlaylist').post(isAuthenticated,addtoPlaylist)
 // Remove from Playlist 
 router.route('/removefromPlaylist').delete(isAuthenticated,removefromPlaylist)
 
-// Admin Users ------
+// Admin Users ------gi
 router.route('/admin/users').get( isAuthenticated ,authorizeAdmin ,getallusers)
+
+router.route('/admin/user/:id').put(isAuthenticated,authorizeAdmin,updateUserRole)
 
 export default router;
