@@ -25,5 +25,4 @@ router.route('/addtoPlaylist').post(isAuthenticated,addtoPlaylist)
 router.route('/removefromPlaylist').delete(isAuthenticated,removefromPlaylist)
 
 
-
 export default router;

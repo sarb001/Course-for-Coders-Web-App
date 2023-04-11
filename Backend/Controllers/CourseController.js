@@ -2,7 +2,6 @@ import { Course } from '../Models/Course.js';
 import getDataUri from '../Utils/dataURI.js';
 import cloudinary from 'cloudinary';
 
-
 export const getAllCourses = async(req,res,next) => {
     const courses = await Course.find().select("-lectures");
     res.status(200).json({
@@ -67,6 +66,15 @@ export const addLectures = async(req,res) => {
     if(!course){
         return res.json({message : " Course Not Found "}) 
     }
+
+    const file = req.file;
+    const fileUri = getDataUri(file);
+
+    const mycloud = await cloudinary.v2.uploader.upload(fileUri.content,{
+        resource_type :"video",
+    });
+
+
     course.lectures.push({
         title,
         description,
@@ -83,4 +91,62 @@ export const addLectures = async(req,res) => {
         success : true,
         message : " Lectures Added in Course ",
     });
+}
+
+
+export const deletecourse = async(req,res) => {
+
+    const {id} = req.params;
+    const course = await Course.findById(id);
+    if(!course){
+        return res.json({message: " Course not Found "})
+    }
+
+    // Delete Img Online 
+    await cloudinary.v2.uploader.destroy(course.poster.public_id);
+
+    for(let i = 0;i < course.lectures.length;i++)
+    {
+        const singlelecture = course.lectures[i];
+        await cloudinary.v2.uploader.destroy(singlelecture.video.public_id , {
+            resource_type : 'video',
+        })
+    }   
+    await course.remove();
+
+    res.status(200).json({
+        success : true,
+        message : " Course Deleted Successfully ",
+    });
+}
+
+export const deleteLecture =  async(req,res) => {
+
+    const { courseId , lectureId } = req.query;
+
+    const course = await Course.findById(id);
+
+    if(!course) { return res.json({message: " Course Not Found "}); }
+
+    const lecture = course.lectures.find((item) => {
+        if (item._id.toString() === lectureId.toString()) return item;
+      });
+      
+      await cloudinary.v2.uploader.destroy(lecture.video.public_id, {
+        resource_type: "video",
+      });
+    
+      course.lectures = course.lectures.filter((item) => {
+        if (item._id.toString() !== lectureId.toString()) return item;
+      });
+    
+      course.numOfVideos = course.lectures.length;
+    
+      await course.save();
+    
+      res.status(200).json({
+        success: true,
+        message: "Lecture Deleted Successfully",
+      });
+
 }
