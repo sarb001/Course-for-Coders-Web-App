@@ -46,7 +46,7 @@ export const getCourseLectures = async(req,res) => {
     const { id } = req.params.id;
     const course = await Course.findById(id);
     if(!course){
-        return res.json({message : " Course Not Found "})
+        return res.json({message : " Course Not Founddd "})
     }
 
     course.views += 1;

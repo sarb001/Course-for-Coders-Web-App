@@ -25,3 +25,12 @@ export const authorizeAdmin = async(req,res,next) => {
     }
     next();
 }
+
+
+export const authorizeSubscribers = async(req,res,next) => {
+    
+     if(req.user.subscription.status !== "active" && req.user.role !== "admin"){
+        return res.json({message : " Only Subscribers can Access this Resource "})
+     }
+     next();
+}

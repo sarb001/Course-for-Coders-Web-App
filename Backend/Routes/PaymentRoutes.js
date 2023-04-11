@@ -1,6 +1,6 @@
 import express from 'express';
 import { isAuthenticated } from '../Middlewares/auth.js';
-import { buySubscription, paymentverification , razorpaykey } 
+import { buySubscription, paymentverification , razorpaykey , cancelSubscription} 
 from '../Controllers/PaymentController.js';
 
 const router = express.Router();
