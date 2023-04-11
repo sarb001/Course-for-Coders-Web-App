@@ -1,6 +1,7 @@
 import express from 'express';
 import { getAllCourses  , CreateCourses ,
 getCourseLectures , addLectures, deletecourse, deleteLecture} from '../Controllers/CourseController.js';
+
 import singleupload from '../Middlewares/multer.js';
 import { authorizeAdmin, isAuthenticated } from '../Middlewares/auth.js';
 

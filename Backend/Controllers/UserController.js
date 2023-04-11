@@ -290,3 +290,18 @@ export const deleteuser = async(req,res) => {
         message : " User Deleted Successfully ",
     })
 }
+
+
+export const deletemyprofile = async(req,res) => {
+    const user = await User.findById(req.user._id);
+
+    await cloudinary.v2.uploader.destroy(user.avatar.public_id);
+    await user.remove();
+
+    res.status(200).cookie("token" , null , {
+        expires : new Date(Date.now())
+    }).json({
+        success : true,
+        message : " user Deleted Successfully ",
+    });
+}
