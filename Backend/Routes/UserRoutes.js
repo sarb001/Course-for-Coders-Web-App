@@ -3,7 +3,7 @@ const router = express.Router();
 
 import { register, login, logout , getMyProfile ,
 changepassword ,updateprofile , updateprofilepicture  , forgetpassword ,
- resetpassword , addtoPlaylist , removefromPlaylist ,getallusers , updateUserRole} 
+ resetpassword , addtoPlaylist , removefromPlaylist ,getallusers , updateUserRole, deleteuser} 
 from '../Controllers/UserController.js';
 
 import { authorizeAdmin, isAuthenticated } from '../Middlewares/auth.js';
@@ -35,6 +35,8 @@ router.route('/removefromPlaylist').delete(isAuthenticated,removefromPlaylist)
 // Admin Users ------gi
 router.route('/admin/users').get( isAuthenticated ,authorizeAdmin ,getallusers)
 
-router.route('/admin/user/:id').put(isAuthenticated,authorizeAdmin,updateUserRole)
+router.route('/admin/user/:id')
+.put(isAuthenticated,authorizeAdmin,updateUserRole)
+.delete(isAuthenticated,authorizeAdmin ,deleteuser)
 
 export default router;

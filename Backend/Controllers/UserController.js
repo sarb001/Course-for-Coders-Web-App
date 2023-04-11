@@ -257,7 +257,6 @@ export const getallusers = async(req,res) => {
 }
 
 
-
 export const updateUserRole = async(req,res) => {
     const user = await User.findById(req.params.id);
     if(!user){
@@ -271,9 +270,23 @@ export const updateUserRole = async(req,res) => {
     }
 
     await user.save();
-
     res.status(200).json({
         success : true,
         message : "Role Updated "
+    })
+}
+
+export const deleteuser = async(req,res) => {
+     const user = await User.findById(req.params.id);
+
+     if(!user){
+        return res.json({message : " User Not Found "});
+     }
+     await cloudinary.v2.uploader.destroy(user.avatar.public_id);
+     await user.deleteOne();
+
+     res.status(200).json({
+        success : true,
+        message : " User Deleted Successfully ",
     })
 }
