@@ -124,8 +124,7 @@ export const deleteLecture =  async(req,res) => {
 
     const { courseId , lectureId } = req.query;
 
-    const course = await Course.findById(id);
-
+    const course = await Course.findById(courseId);
     if(!course) { return res.json({message: " Course Not Found "}); }
 
     const lecture = course.lectures.find((item) => {
@@ -141,9 +140,7 @@ export const deleteLecture =  async(req,res) => {
       });
     
       course.numOfVideos = course.lectures.length;
-    
       await course.save();
-    
       res.status(200).json({
         success: true,
         message: "Lecture Deleted Successfully",

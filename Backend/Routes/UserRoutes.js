@@ -7,14 +7,21 @@ changepassword ,updateprofile , updateprofilepicture  , forgetpassword ,
 from '../Controllers/UserController.js';
 
 import { isAuthenticated } from '../Middlewares/auth.js';
+import singleupload from '../Middlewares/multer.js';
 
-router.route('/register').post(register)
+router.route('/register').post( singleupload,register)
 router.route('/login').post(login)
 router.route('/logout').get(logout)
 router.route('/me').get(isAuthenticated,getMyProfile)
-router.route('/changepassword').put(isAuthenticated,changepassword)
-router.route('/updateprofile').put(isAuthenticated,updateprofile)
-router.route('/updateprofilepicture').put(isAuthenticated,updateprofilepicture)
+
+router.route('/changepassword')
+.put(isAuthenticated,changepassword)
+router.route('/updateprofile')
+.put(isAuthenticated,updateprofile)
+
+router.route('/updateprofilepicture')
+.put(isAuthenticated,singleupload,updateprofilepicture)
+
 router.route('/forgetpassword').post(forgetpassword)
 router.route('/resetpassword/:token').put(resetpassword)
 
