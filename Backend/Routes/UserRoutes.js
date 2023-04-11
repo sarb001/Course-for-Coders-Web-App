@@ -3,10 +3,10 @@ const router = express.Router();
 
 import { register, login, logout , getMyProfile ,
 changepassword ,updateprofile , updateprofilepicture  , forgetpassword ,
- resetpassword , addtoPlaylist , removefromPlaylist } 
+ resetpassword , addtoPlaylist , removefromPlaylist ,getallusers } 
 from '../Controllers/UserController.js';
 
-import { isAuthenticated } from '../Middlewares/auth.js';
+import { authorizeAdmin, isAuthenticated } from '../Middlewares/auth.js';
 import singleupload from '../Middlewares/multer.js';
 
 router.route('/register').post( singleupload,register)
@@ -26,10 +26,13 @@ router.route('/forgetpassword').post(forgetpassword)
 router.route('/resetpassword/:token').put(resetpassword)
 
 
-//add to Playlist
-
+// Add to Playlist
 router.route('/addtoPlaylist').post(isAuthenticated,addtoPlaylist)
+
+// Remove from Playlist 
 router.route('/removefromPlaylist').delete(isAuthenticated,removefromPlaylist)
 
+// Admin Users ------
+router.route('/admin/users').get( isAuthenticated ,authorizeAdmin ,getallusers)
 
 export default router;
