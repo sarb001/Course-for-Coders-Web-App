@@ -169,7 +169,6 @@ export  const resetpassword = async(req,res) => {
     })
 }
 
-
 export const addtoPlaylist = async(req,res) => {
     
     const user  = await User.findById(req.user._id);
