@@ -3,7 +3,21 @@ import getDataUri from '../Utils/dataURI.js';
 import cloudinary from 'cloudinary';
 
 export const getAllCourses = async(req,res,next) => {
-    const courses = await Course.find().select("-lectures");
+
+    const keyword = req.query.keyword || "";
+    const category = req.query.category || "";
+
+    const courses = await Course.find({
+        title : {
+            $regex : keyword,
+            $options : "i",
+        },
+        category : {
+            $regex  :category,
+            $options : "i",
+        },
+    }).select("-lectures");
+    
     res.status(200).json({
         success : true,
         courses,
@@ -42,6 +56,10 @@ export const CreateCourses     = async(req,res,next) => {
 
 
 export const getCourseLectures = async(req,res) => {
+
+
+
+
 
     const { id } = req.params.id;
     const course = await Course.findById(id);

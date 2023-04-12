@@ -10,7 +10,7 @@ router.route('/contact').post(contact);
 router.route('/courserequest').post(courserequest);
 
 router
-.route('/courserequest')
+.route('/admin/stats')
 .get(isAuthenticated,authorizeAdmin ,getdashboardstats);
 
 export default  router;
