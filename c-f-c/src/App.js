@@ -23,12 +23,16 @@ import Dashboard from './Components/Admin/DashBoard/Dashboard';
 import CreateCourses from './Components/Admin/CreateCourses/CreateCourses';
 import Users from './Components/Admin/Users/Users';
 import AdminCourses from './Components/Admin/AdminCourses/AdminCourses';
+import { useSelector } from 'react-redux';
 
 function App() {
+
+   const { isAuthenticated , user} = useSelector(state => state.user);
+
   return (
      <>
      <Router>
-            <Header />
+            <Header isAuthenticated = {isAuthenticated} user = {user} />
          <Routes>
             <Route exact path = "/"  element= {<Home />}> </Route>
             <Route  path = "/courses"  element= {<Courses />}> </Route>

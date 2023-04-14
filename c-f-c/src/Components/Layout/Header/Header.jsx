@@ -21,13 +21,9 @@ const LinkButton = ({ url = '/', title = 'Home', onClose }) => (
     </Link>
   );
 
-const Header = () => {
+const Header = ({isAuthenticated, user}) => {
 
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const isAuthenticated = false;
-    const user = {
-        role: 'admin'
-    }
 
     const logoutHandler = () => {
         console.log('Logout Now ');
