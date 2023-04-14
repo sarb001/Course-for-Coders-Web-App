@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router , Route ,Routes } from 'react-router-dom'
 import Home from './Components/Home/Home';
 import Header from './Components/Layout/Header/Header';
@@ -23,11 +23,33 @@ import Dashboard from './Components/Admin/DashBoard/Dashboard';
 import CreateCourses from './Components/Admin/CreateCourses/CreateCourses';
 import Users from './Components/Admin/Users/Users';
 import AdminCourses from './Components/Admin/AdminCourses/AdminCourses';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import  toast,{ Toaster } from 'react-hot-toast';
+import { loadUser } from './Redux/actions/user';
+import { ProtectedRoute } from 'protected-route-react';
 
 function App() {
 
-   const { isAuthenticated , user} = useSelector(state => state.user);
+   const { isAuthenticated , user ,message , error  } = useSelector(state => state.user);
+   const dispatch = useDispatch();
+
+   useEffect(() => {
+      if(error){
+         toast.error(error);
+         dispatch({ type:"clearError "})
+      } 
+
+      if(message){
+         toast.success(message);
+         dispatch({ type:"clearMessage" })
+      }
+
+   },[dispatch,error,message]);
+
+   useEffect(() => {
+      dispatch(loadUser());
+   },[dispatch])
+
 
   return (
      <>
@@ -39,11 +61,20 @@ function App() {
             <Route  path = "/course/:id"  element= {<Coursepage />}> </Route>
 
 
-            <Route exact path = "/login"  element= {<Login />}> </Route>
+             {/*  User not Authenticated then show Login  */}
+            <Route exact path = "/login"  element = {
+               <ProtectedRoute  isAuthenticated = {!isAuthenticated} redirect = "/profile" >
+                  <Login />
+               </ProtectedRoute>
+            }> </Route>
             <Route exact path = "/changepassword"  element= {<ChangePassword  />}> </Route>
             <Route exact path = "/updateprofile"  element= {<UpdateProfile />}> </Route>
 
-            <Route exact path = "/profile"  element= {<Profile />}> </Route>
+            <Route exact path = "/profile"  element = {
+               <ProtectedRoute isAuthenticated = {isAuthenticated}>
+                  <Profile />
+               </ProtectedRoute>
+            }> </Route>
             <Route exact path = "/contact"  element= {<Contact  />}> </Route>
             <Route exact path = "/request"  element= {<Request  />}> </Route>
             <Route exact path = "/about"  element= {<About  />}> </Route>
@@ -67,6 +98,7 @@ function App() {
 
          </Routes>
          <Footer />
+         <Toaster />
      </Router>
      </>
   );
