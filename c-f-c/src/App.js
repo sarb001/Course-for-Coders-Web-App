@@ -46,10 +46,6 @@ function App() {
 
    },[dispatch,error,message]);
 
-   useEffect(() => {
-      dispatch(loadUser());
-   },[dispatch])
-
 
   return (
      <>

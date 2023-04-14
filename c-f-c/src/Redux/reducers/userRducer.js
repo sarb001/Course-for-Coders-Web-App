@@ -2,6 +2,8 @@ import { createReducer } from "@reduxjs/toolkit";
 
 export const UserReudcer = createReducer({},{
 
+    // Login Request 
+
     loginRequest : (state) => {
         state.loading = true;
     },
@@ -28,6 +30,8 @@ export const UserReudcer = createReducer({},{
     },
 
 
+    // load User Request or /me 
+
     loadUserRequest : (state) => {
         state.loading = true;
     },
@@ -41,5 +45,22 @@ export const UserReudcer = createReducer({},{
         state.loading = false;
         state.isAuthenticated = false;
         state.error = action.payload;
+    },
+
+    // Logout Functions 
+
+    logoutUserRequest : (state) => {
+        state.loading = true;
+    },
+    logoutUserSuccess : (state,action) => {
+        state.loading = false;
+        state.isAuthenticated = false;
+        state.user = null;
+        state.message = action.payload;
+    },
+    logoutUserFail : (state,action) => {
+        state.loading = false;
+        state.isAuthenticated = true;
+        state.error = action.payload; 
     },
 })
