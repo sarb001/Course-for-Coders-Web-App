@@ -56,14 +56,12 @@ export const register = formdata =>  async dispatch   => {
     try{
 
         dispatch({ type: 'SignupUserRequest' });
-        
         const { data } = await axios.post(`${server}/register` , formdata,
         {
-             headers: {
+             headers: {  
                  'Content-type' : 'multipart/form-data',
              },
-            withCredentials : true,
-            allowCredentials : true
+             Credentials : 'true',
         },
         );
         console.log('data Signup iss - ',data);
