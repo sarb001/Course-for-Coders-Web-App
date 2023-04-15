@@ -73,8 +73,14 @@ function App() {
             }> </Route>
             <Route exact path = "/contact"  element= {<Contact  />}> </Route>
             <Route exact path = "/request"  element= {<Request  />}> </Route>
-            <Route exact path = "/about"  element= {<About  />}> </Route>
-            <Route exact path = "/register"  element= {<Register />}> </Route>
+            <Route exact path = "/about"     element= {<About  />}> </Route>
+            <Route path = "/register"  element= { 
+               <ProtectedRoute  
+                  isAuthenticated = {!isAuthenticated} 
+                  redirect = "/profile">
+                  <Register />
+               </ProtectedRoute>
+            }> </Route>
             <Route exact path = "/forgetpassword"  element= {<ForgetPassword />}> </Route>
             <Route exact path = "/resetpassword/:token"  element= {<ResetPassword />}> </Route>
 

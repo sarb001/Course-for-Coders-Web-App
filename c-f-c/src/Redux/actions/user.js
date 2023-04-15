@@ -20,7 +20,7 @@ export const login = (email,password) =>  async(dispatch)   => {
     }
 }
 
-export const loadUser = () =>  async(dispatch)   => {
+export const loadUser = () =>  async dispatch  => {
     try{
         dispatch({ type: 'loadUserRequest' });
 
@@ -37,7 +37,7 @@ export const loadUser = () =>  async(dispatch)   => {
     }
 }
 
-export const logout = () =>  async(dispatch)   => {
+export const logout = () =>  async dispatch   => {
     try{
         dispatch({ type: 'logoutUserRequest' });
         const { data } = await axios.get(`${server}/logout`,
@@ -49,5 +49,26 @@ export const logout = () =>  async(dispatch)   => {
         dispatch({ type: 'logoutUserSuccess'  , payload : data.message });
     }catch(error){
         dispatch({ type: 'logoutUserFail' , payload :error.response.data.message});
+    }
+}
+
+export const register = formdata =>  async dispatch   => {
+    try{
+
+        dispatch({ type: 'SignupUserRequest' });
+        
+        const { data } = await axios.post(`${server}/register` , formdata,
+        {
+             headers: {
+                 'Content-type' : 'multipart/form-data',
+             },
+            withCredentials : true,
+            allowCredentials : true
+        },
+        );
+        console.log('data Signup iss - ',data);
+        dispatch({ type: 'SignUserSuccess'  , payload : data });
+    }catch(error){
+        dispatch({ type: 'SignUserFail' , payload :error.response.data.message});
     }
 }

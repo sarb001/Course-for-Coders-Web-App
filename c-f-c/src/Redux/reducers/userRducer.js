@@ -38,14 +38,32 @@ export const UserReudcer = createReducer({},{
     loadUserSuccess : (state,action) => {
         state.loading = false;
         state.isAuthenticated = true;
-        state.user = action.payload;
-        state.message = action.payload;
+        state.user = action.payload.user;
+        state.message = action.payload.message;
     },
     loadUserFail : (state,action) => {
         state.loading = false;
         state.isAuthenticated = false;
         state.error = action.payload;
     },
+
+    // Signup Form 
+
+    SignupUserRequest : (state) => {
+        state.loading = true;
+    },
+    SignUserSuccess : (state,action) => {
+        state.loading = false;
+        state.isAuthenticated = true;
+        state.user = action.payload;
+        state.message = action.payload;
+    },
+    SignUserFail : (state,action) => {
+        state.loading = false;
+        state.isAuthenticated = false;
+        state.error = action.payload;
+    },
+
 
     // Logout Functions 
 
