@@ -37,7 +37,7 @@ export const loadUser = () =>  async dispatch  => {
     }
 }
 
-export const logout = () =>  async dispatch   => {
+export const logout   = () =>  async dispatch   => {
     try{
         dispatch({ type: 'logoutUserRequest' });
         const { data } = await axios.get(`${server}/logout`,
@@ -54,17 +54,14 @@ export const logout = () =>  async dispatch   => {
 
 export const register = formdata =>  async dispatch   => {
     try{
-
         dispatch({ type: 'SignupUserRequest' });
-        const { data } = await axios.post(`${server}/register` , formdata,
+        const {data}  = await axios.post(`${server}/register` , formdata,
         {
-             headers: {  
-                 'Content-type' : 'multipart/form-data',
-             },
-             Credentials : 'true',
+                 'Content-Type' : 'multipart/form-data',
+             Credentials : true,
         },
         );
-        console.log('data Signup iss - ',data);
+        console.log('data Signup 1111 - ', {data});
         dispatch({ type: 'SignUserSuccess'  , payload : data });
     }catch(error){
         dispatch({ type: 'SignUserFail' , payload :error.response.data.message});

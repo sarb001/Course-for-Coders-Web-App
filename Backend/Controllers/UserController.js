@@ -10,10 +10,10 @@ import getDataUri from '../Utils/dataURI.js';
 export const register  = async(req,res,next) => {
 
     const { name, email, password } = req.body;
-    const file = req.file;
+     const file = req.file;
 
-  if (!name || !email || !password  || !file){
-      return res.json({message : " Please Fill All the Fields "});
+  if (!name || !email || !password){
+      return res.json({message : " Please Fill All the Fieldsssssss "});
   }
 
   let user = await User.findOne({ email });
@@ -42,7 +42,7 @@ export const login     = async(req,res,next) => {
     const { email, password } = req.body;
 
   if (!email || !password){
-      return res.json({message : " Please Fill All the Fields "});
+      return res.json({message : " ssssssss Fill All the Fields "});
     }
     
     let user = await User.findOne({ email }).select("+password");

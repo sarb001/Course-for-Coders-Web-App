@@ -10,7 +10,7 @@ from '../Controllers/UserController.js';
 import { authorizeAdmin, isAuthenticated } from '../Middlewares/auth.js';
 import singleupload from '../Middlewares/multer.js';
 
-router.route('/register').post( singleupload,register)
+router.route('/register').post(singleupload,register)
 router.route('/login').post(login)
 router.route('/logout').get(logout)
 
