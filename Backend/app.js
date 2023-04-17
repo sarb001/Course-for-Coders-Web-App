@@ -32,6 +32,7 @@ app.use('/api/v1',payment);
 export default app;
 
 app.get('/' , (req,res)  => {
+    res.setHeader("Access-Control-Allow-Credentails", "true");
     res.send(`<h2>  Server is Working ,  
     <a href = ${process.env.FRONTEND_URL}> Click </a> 
     to visit Frontend  </h2>`)

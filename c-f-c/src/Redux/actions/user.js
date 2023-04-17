@@ -52,16 +52,20 @@ export const logout   = () =>  async dispatch   => {
     }
 }
 
-export const register = formdata =>  async dispatch   => {
+export const register = (formdata) =>  async (dispatch)   => {
     try{
         dispatch({ type: 'SignupUserRequest' });
-        const {data}  = await axios.post(`${server}/register` , formdata,
-        {
-                 'Content-Type' : 'multipart/form-data',
-             Credentials : true,
-        },
-        );
-        console.log('data Signup 1111 - ', {data});
+
+        const config = {
+            headers : {
+                "Content-Type" : "application/json",
+            },
+            Credentials : true
+        }
+
+        const {data}  = await axios.post(`${server}/register` , formdata, config );
+        
+        console.log('data Signup heree - ', {data});
         dispatch({ type: 'SignUserSuccess'  , payload : data });
     }catch(error){
         dispatch({ type: 'SignUserFail' , payload :error.response.data.message});
