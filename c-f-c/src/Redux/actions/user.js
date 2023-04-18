@@ -9,14 +9,14 @@ export const login = (email,password) =>  async(dispatch)   => {
             headers : {
                 'Content-Type': 'application/json',
             },
-            withCredentials : true,
+            withCredentials : false,
         })
         dispatch({ type: 'loginSuccess'  , payload : data });
 
         console.log('data is ',{data});
 
     }catch(error){
-        dispatch({ type: 'loginFail'  ,  payload :error.respone.data.message});
+        dispatch({ type: 'loginFail'  ,  payload :error.response.data.message});
     }
 }
 
@@ -42,7 +42,7 @@ export const logout   = () =>  async dispatch   => {
         dispatch({ type: 'logoutUserRequest' });
         const { data } = await axios.get(`${server}/logout`,
          {
-            withCredentials : true,
+            withCredentials : false,
          }
         );
         console.log('data get Profile-- ',{data});
@@ -59,8 +59,8 @@ export const register = (formdata) =>  async (dispatch)   => {
         const config = {
             headers : {
                 "Content-Type" : "application/json",
-            },
-            Credentials : true
+            }, 
+            Credentials : false
         }
 
         const {data}  = await axios.post(`${server}/register` , formdata, config );

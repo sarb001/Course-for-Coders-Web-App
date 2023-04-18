@@ -13,7 +13,6 @@ config({
 })
 const app = express();
 
-app.use(express.json());
 app.use(cookieParser());
 
 app.use(cors({
@@ -21,6 +20,8 @@ app.use(cors({
     credentials : true,
     methods : ["GET","POST","PUT","DELETE"],
 }))
+
+app.use(express.json());
 
 
 app.use('/api/v1',course);
@@ -32,7 +33,6 @@ app.use('/api/v1',payment);
 export default app;
 
 app.get('/' , (req,res)  => {
-    res.setHeader("Access-Control-Allow-Credentails", "true");
     res.send(`<h2>  Server is Working ,  
     <a href = ${process.env.FRONTEND_URL}> Click </a> 
     to visit Frontend  </h2>`)

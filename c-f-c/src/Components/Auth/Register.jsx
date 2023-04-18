@@ -46,7 +46,7 @@ const Register = () => {
         myForm.append('name',name)
         myForm.append('email',email)
         myForm.append('password',password)
-        myForm.append('file',image)
+        // myForm.append('file',image)
 
         dispatch(register(myForm));
     }
@@ -112,7 +112,7 @@ const Register = () => {
                     />
                 </Box>
 
-                <Box my={'4'}>
+                {/* <Box my={'4'}>
                     <FormLabel htmlFor="chooseAvatar" children="Choose Avatar" />
                     <Input
                     accept="image/*"
@@ -123,7 +123,7 @@ const Register = () => {
                     css={fileUploadStyle}
                     onChange={changeImageHandler}
                     />
-                </Box>
+                </Box> */}
 
                 <button style = {{backgroundColor:'red',padding:'3%'}}>
                     Sign Up
