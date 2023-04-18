@@ -10,4 +10,4 @@ const  store = configureStore({
 
 export default store;
 
-export const server = 'https://course-for-coders-web-app-production.up.railway.app'
+export const server = 'https://course-for-coders-web-app-production.up.railway.app/api/v1'

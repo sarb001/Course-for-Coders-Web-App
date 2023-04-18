@@ -53,7 +53,7 @@ export const logout   = () =>  async dispatch   => {
 }
 
 export const register = (formdata) =>  async (dispatch)   => {
-    try{
+    try{1
         dispatch({ type: 'SignupUserRequest' });
 
         const config = {
