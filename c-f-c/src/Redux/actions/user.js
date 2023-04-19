@@ -4,13 +4,16 @@ import  axios from 'axios';
 export const login = (email,password) =>  async(dispatch)   => {
     try{
         dispatch({ type: 'loginRequest' });
-        const { data } = await axios.post(`${server}/login`, {email,password },
-        {
+
+        const config = {
             headers : {
-                'Content-Type': 'application/json',
-            },
-            withCredentials : false,
-        })
+                "Content-Type" : "application/json",
+            }, 
+            withCredentials : false
+        }
+
+        const { data } = await axios.post(`${server}/login`, {email,password},config)
+        
         dispatch({ type: 'loginSuccess'  , payload : data });
 
         console.log('data is ',{data});
@@ -60,7 +63,7 @@ export const register = (formdata) =>  async (dispatch)   => {
             headers : {
                 "Content-Type" : "application/json",
             }, 
-            Credentials : false
+            withCredentials : false
         }
 
         const {data}  = await axios.post(`${server}/register` , formdata, config );
