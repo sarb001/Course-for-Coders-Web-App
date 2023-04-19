@@ -10,11 +10,11 @@ import getDataUri from '../Utils/dataURI.js';
 export const register  = async(req,res,next) => {
 
     const { name, email, password } = req.body;
-    //  const file = req.file;
+     const file = req.file;
 
     console.log(' Register 1 -',name,email,password);
 
-        if (!name || !email || !password){
+        if (!name || !email || !password || !file){
             return res.json({message : " Please Fill All the Fieldsssssss "});
         }
 
@@ -23,21 +23,21 @@ export const register  = async(req,res,next) => {
 
     console.log(' Register 2 -',name,email,password);
 
-    // const fileUri = getDataUri(file);
-    // const mycloud = await cloudinary.v2.uploader.upload(fileUri.content);
+    const fileUri = getDataUri(file);
+    const mycloud = await cloudinary.v2.uploader.upload(fileUri.content);
 
     user = await User.create({
         name,
         email,
         password,
-        // avatar: {
-        // public_id:mycloud.public_id,
-        // url: mycloud.secure_url,
-        // },
+        avatar: {
+        public_id:mycloud.public_id,
+        url: mycloud.secure_url,
+        },
     });
 
     console.log('Register 3 Success');
-  sendToken(res,user,'Registered Successfully',201);
+    sendToken(res,user,'Registered Successfully',201);
 
 }
 
@@ -48,7 +48,7 @@ export const login     = async(req,res,next) => {
   if (!email || !password){
       return res.json({message : " ssssssss Fill All the Fields "});
     }
-    
+
     let user = await User.findOne({ email }).select("+password");
     
     if (!user) return res.json({message : 'User Not Present'})
