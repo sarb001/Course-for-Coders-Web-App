@@ -68,7 +68,7 @@ function App() {
 
             <Route exact path = "/profile"  element = {
                <ProtectedRoute isAuthenticated = {isAuthenticated}>
-                  <Profile />
+                  <Profile user = {user}/>
                </ProtectedRoute>
             }> </Route>
             <Route exact path = "/contact"  element= {<Contact  />}> </Route>
@@ -86,17 +86,59 @@ function App() {
 
             {/* Related To Payments */}
 
-            <Route  path = "/subscribe"  element= {<Subscribe />}> </Route>
+            <Route  path = "/subscribe"  element= {
+            <ProtectedRoute  isAuthenticated = {!isAuthenticated}>
+                    <Subscribe />
+                 </ProtectedRoute>}> </Route>
             <Route  path = "*"  element= {<NotFound />}> </Route>
             <Route  path = "/paymentsuccess"  element= {<PaymentSuccess/>}> </Route>
             <Route  path = "/paymentfail"  element= {<PaymentsFail  />}> </Route>
 
                {/* admin dashboard  */}
 
-            <Route  path = "/admin/dashboard"   element = {<Dashboard  />}> </Route>
-            <Route  path = "/admin/createcourse"  element = {<CreateCourses />}> </Route>
-            <Route  path = "/admin/courses"     element = {<AdminCourses  />}> </Route>
-            <Route  path = "/admin/users"       element = {<Users  />}> </Route>
+
+            <Route  path = "/admin/dashboard"   
+            element = { 
+                <ProtectedRoute 
+              adminRoute = {true}  
+              isAuthenticated = {isAuthenticated} 
+              isAdmin  = {user && user.role === 'admin'}>
+                 <Dashboard  />
+               </ProtectedRoute>
+            }>
+            
+            </Route>
+
+            <Route  path = "/admin/createcourse" 
+             element = 
+             { 
+               <ProtectedRoute 
+             adminRoute = {true}  
+             isAuthenticated = {isAuthenticated} 
+             isAdmin  = {user && user.role === 'admin'}>
+              <CreateCourses />
+              </ProtectedRoute>
+           }> </Route>
+
+               <Route  path = "/admin/courses"     
+               element = 
+               { 
+                  <ProtectedRoute 
+               adminRoute = {true}  
+               isAuthenticated = {isAuthenticated} 
+               isAdmin  = {user && user.role === 'admin'}>
+                  <AdminCourses  />
+               </ProtectedRoute>
+            }> </Route>
+
+            <Route  path = "/admin/users"     
+              element =  {  <ProtectedRoute 
+                           adminRoute = {true}  
+                           isAuthenticated = {isAuthenticated} 
+                           isAdmin  = {user && user.role === 'admin'}>
+                 <Users  />
+                   </ProtectedRoute> }> 
+           </Route>
 
          </Routes>
          <Footer />

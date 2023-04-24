@@ -10,29 +10,33 @@ import getDataUri from '../Utils/dataURI.js';
 export const register  = async(req,res,next) => {
 
     const { name, email, password } = req.body;
-     const file = req.file;
-
-    console.log(' Register 1 -',name,email,password);
-
-        if (!name || !email || !password || !file){
-            return res.json({message : " Please Fill All the Fieldsssssss "});
-        }
-
+    const file = req.file;
+    console.log(' Registe FFFF -',file);
+    
+    console.log(' Register file -',name,email,password,file);
+    
+    if (!name || !email || !password || !file){
+        return res.json({message : " Please Fill All the Fieldsssssss "});
+    }
+    
     let user = await User.findOne({ email });
     if (user) return res.json({message : 'User Already EXisted '})
-
+    
     console.log(' Register 2 -',name,email,password);
-
+    
     const fileUri = getDataUri(file);
+    console.log('filter  URI -' ,fileUri);
     const mycloud = await cloudinary.v2.uploader.upload(fileUri.content);
+    console.log(' mycloud  isss-' ,mycloud);
+
 
     user = await User.create({
         name,
         email,
         password,
         avatar: {
-        public_id:mycloud.public_id,
-        url: mycloud.secure_url,
+                public_id:mycloud.public_id,
+                url: mycloud.secure_url,
         },
     });
 

@@ -71,6 +71,6 @@ export const register = (formdata) =>  async (dispatch)   => {
         console.log('data Signup heree - ', {data});
         dispatch({ type: 'SignUserSuccess'  , payload : data });
     }catch(error){
-        dispatch({ type: 'SignUserFail' , payload :error.response.data.message});
+       return  dispatch({ type: 'SignUserFail' , payload :error.response.data.message});
     }
 }

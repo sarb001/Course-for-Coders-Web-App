@@ -5,7 +5,8 @@ const getDataUri = (file) => {
     const parser   = new DataUriParser();
     const extName  = path.extname(file.originalname).toString();
 
-    console.log(extName);
+    console.log('Here is parserrr - --',parser);
+    console.log('Here is extname- --',extName);
     return parser.format(extName,file.buffer);
 
 }

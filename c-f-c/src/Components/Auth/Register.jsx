@@ -31,6 +31,7 @@ import { register } from '../../Redux/actions/user';
 
 
 const Register = () => {
+
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
@@ -38,6 +39,23 @@ const Register = () => {
     const [image, setImage] = useState('');
     
     const dispatch = useDispatch();
+
+
+    const changeImageHandler = e => {
+      const file = e.target.files[0];
+      console.log('file is' ,file);
+
+     const reader = new FileReader();
+
+     reader.readAsDataURL(file);
+
+
+     reader.onloadend = () => {
+       setImagePrev(reader.result);
+       setImage(file);
+       console.log('set image inside  ',setImage(file));
+    };
+  }
 
     const submitHandler = (e)  => {
         e.preventDefault();
@@ -48,19 +66,10 @@ const Register = () => {
         myForm.append('password',password)
         myForm.append('file',image)
 
+        console.log('myform is --',myForm);
         dispatch(register(myForm));
     }
 
-    const changeImageHandler = e => {
-        const file = e.target.files[0];
-       const reader = new FileReader();
-
-       reader.readAsDataURL(file);
-       reader.onloadend = () => {
-        setImagePrev(reader.result);
-        setImage(file);
-      };
-    }
 
 
   return (
@@ -71,8 +80,9 @@ const Register = () => {
 
                 <form onSubmit = {submitHandler} style={{ width: '100%' }}>
                 <Box my="4" display={'flex'} justifyContent="center">
-                    <Avatar src={imagePrev} size={'2xl'} />
+                    <Avatar src = {imagePrev} size={'2xl'} />
                 </Box>
+                
                 <Box my={'4'}>
                     <FormLabel htmlFor="name" children="Name" />
                     <Input

@@ -23,7 +23,7 @@ import {  Link } from 'react-router-dom';
 import { RiDeleteBin7Fill } from 'react-icons/ri';
 import { fileUploadCss } from '../Auth/Register';
 
-const Profile = () => {
+const Profile = ({user}) => {
 
     const { isOpen, onClose, onOpen } = useDisclosure();
 
@@ -32,21 +32,21 @@ const Profile = () => {
     }
 
 
-    const user = {
-      name : "abhi",
-      createAt : String(new Date()),
-      email: "abhi@gmail.com",
-      role: "user",
-      subscription : {
-        status : undefined
-      },
-      playlist : [
-        {
-          course : "sadased",
-          poster : ''
-        }
-      ]
-    }
+    // const user = {
+    //   name : "abhi",
+    //   createAt : String(new Date()),
+    //   email: "abhi@gmail.com",
+    //   role: "user",
+    //   subscription : {
+    //     status : undefined
+    //   },
+    //   playlist : [
+    //     {
+    //       course : "sadased",
+    //       poster : ''
+    //     }
+    //   ]
+    // }
  
     const removeFromPlaylistHandler = (id) => {
       console.log('removed idsi ',id);
@@ -82,13 +82,13 @@ const Profile = () => {
 
             <HStack>
                 <Text children="CreatedAt" fontWeight={'bold'} />
-                <Text children={user.createAt.split('T')[0]} />
+                <Text children={user.createdAt.split('T')[0]} />
             </HStack>
 
              {user.role !== "admin" && (
                 <HStack>
                 <Text   children = "Subscription"   fontWeight = 'bold' />
-                  {user.subscription.status === "active" ? (
+                  {user.subscription && user.subscription.status === "active" ? (
                     <Button> Cancel Subscription  </Button>
                     ) : (
                       <Link to = "/subscribe">
